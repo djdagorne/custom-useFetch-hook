@@ -1,24 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import useFetch from './useFetch'
 
 function App() {
+  const res = useFetch("https://dog.ceo/api/breeds/image/random", {});
+  console.log(res);
+  if(!res.response) {
+    return <h3 className="App">Loading...</h3>
+  }
+  const dogName = res.response.status;
+  const imageUrl = res.response.message;
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <h3>{dogName}</h3>
+        <div>
+          <img src={imageUrl} alt="avatar" />
+        </div>
+      </div>
     </div>
   );
 }
